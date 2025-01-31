@@ -23,7 +23,7 @@ export default function Home() {
       {/* Main Content */}
       <main className="container mx-auto px-4 flex flex-col items-center justify-center min-h-[calc(100vh-88px)] text-center max-w-5xl">
         {/* Badge */}
-        <div className="border /*bg-gradient-to-r from-[#a5e887] to-[#64b6ac]*/ text-white px-6 py-2 mb-4 rounded-full inline-flex items-center">
+        <div className=" text-md md:text-lg border /*bg-gradient-to-r from-[#a5e887] to-[#64b6ac]*/ text-white px-6 py-2 mb-4 rounded-full inline-flex items-center">
           Cardano Smart Contract Audits 🔍👨‍💻
         </div>
 
