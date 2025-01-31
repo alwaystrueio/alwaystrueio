@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#1a1f24] text-white flex flex-col items-center px-12">
       {/* Header */}
-      <header className="container mx-auto max-w-6xl px-4 py-6 flex justify-between items-center">
+      <header className="container mx-auto max-w-7xl px-4 py-6 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
         <Image src="/logo-solid-con-texto-verde.svg" alt="Logo" width={160} height={100} />
         </Link>
@@ -21,21 +21,21 @@ export default function Home() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 flex flex-col items-center justify-center min-h-[calc(100vh-88px)] text-center max-w-4xl">
+      <main className="container mx-auto px-4 flex flex-col items-center justify-center min-h-[calc(100vh-88px)] text-center max-w-5xl">
         {/* Badge */}
         <div className="border /*bg-gradient-to-r from-[#a5e887] to-[#64b6ac]*/ text-white px-6 py-2 mb-4 rounded-full inline-flex items-center">
           Cardano Smart Contract Audits 🔍👨‍💻
         </div>
 
         {/* Heading */}
-        <h1 className="text-2xl md:text-5xl lg:text-5xl font-mono font-bold max-w-4xl leading-tight mb-24 tracking-tight ">
+        <h1 className="text-4xl md:text-6xl lg:text-6xl font-mono font-bold max-w-5xl leading-tight mb-24 tracking-tight ">
           My Name Is <span className="text-[#a5e887]">AlwaysTrue</span>,
           <br />
           You Wrote A Bug, Prepare To Die
         </h1>
 
         {/* Description */}
-        <p className="text-gray-300 max-w-2xl mb-24 leading-relaxed">
+        <p className="text-gray-400 max-w-3xl mb-24 leading-relaxed text-lg">
           <span className="text-[#a5e887]">always</span>
           <span className="text-[#a5e887] font-black">true</span> is a cybersecurity company focused on the Cardano ecosystem. We
           specialize in <span className="text-[#64b6ac]">smart contract security and optimization audits</span> and are dedicated to ensuring safe, efficient,
