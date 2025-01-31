@@ -6,7 +6,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-[#1a1f24] text-white flex flex-col items-center px-12">
       {/* Header */}
-      <header className="container mx-auto max-w-7xl px-4 py-6 flex justify-between items-center">
+      <header className="container mx-auto max-w-6xl px-4 py-6 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
         <Image src="/logo-solid-con-texto-verde.svg" alt="Logo" width={160} height={100} />
         </Link>
