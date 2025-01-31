@@ -10,12 +10,14 @@ export default function Home() {
         <Link href="/" className="flex items-center gap-2">
         <img src="/logo-solid-con-texto-verde.svg" alt="Logo" width={160} height={100} />
         </Link>
-        <Button
+        <a href="mailto:contact@alwaystrue.io">
+          <Button
           variant="outline"
           className="border-[#a5e887] text-[#a5e887] bg-[#1a1f24] hover:bg-[#a5e887] hover:text-black transition-colors"
         >
           Contact
         </Button>
+        </a>
       </header>
 
       {/* Main Content */}
@@ -42,12 +44,12 @@ export default function Home() {
         </p>
 
         {/* CTA Button */}
-        <Link
-          href="/contact"
+        <a
+          href="mailto:contact@alwaystrue.io"
           className="inline-block bg-gradient-to-r from-[#a5e887] to-[#64b6ac] text-black font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
         >
           Contact Us For An Audit
-        </Link>
+        </a>
       </main>
     </div>
   )
