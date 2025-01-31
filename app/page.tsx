@@ -28,8 +28,8 @@ export default function Home() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-3xl md:text-6xl lg:text-6xl font-mono font-bold max-w-5xl leading-tight mb-24 tracking-tight ">
-          My Name Is <span className="text-[#a5e887]">always</span>
+        <h1 className="text-3xl md:text-6xl lg:text-6xl font-bold font-mono max-w-5xl leading-tight mb-24 tracking-tighter ">
+          My Name Is <span className="text-[#a5e887] font-thin">always</span>
           <span className="text-[#a5e887] font-black">true</span>,
           <br />
           You Wrote A Bug, Prepare To Die
