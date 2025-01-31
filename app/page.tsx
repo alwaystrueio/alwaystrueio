@@ -7,13 +7,13 @@ export default function Home() {
     <div className="min-h-screen bg-[#1a1f24] text-white flex flex-col items-center px-12">
       {/* Header */}
       <header className="container mx-auto max-w-6xl px-4 py-6 flex justify-between items-center">
-        <Link href="/" className="flex items-center gap-2">
-        <Image src="/logo-solid-con-texto-verde.svg" alt="Logo" width={160} height={100} />
+        <Link href="/" className="flex items-center gap-2 w-[140px] md:w-[180px]">
+        <Image src="/logo-solid-con-texto-verde.svg" alt="Logo" width={180} height={100} />
         </Link>
         <a href="mailto:contact@alwaystrue.io">
           <Button
           variant="outline"
-          className="border-[#a5e887] text-[#a5e887] bg-[#1a1f24] hover:bg-[#a5e887] hover:text-black transition-colors"
+          className="text-md md:text-lg border-[#a5e887] text-[#a5e887] bg-[#1a1f24] hover:bg-[#a5e887] hover:text-black transition-colors"
         >
           Contact
         </Button>
@@ -28,14 +28,15 @@ export default function Home() {
         </div>
 
         {/* Heading */}
-        <h1 className="text-4xl md:text-6xl lg:text-6xl font-mono font-bold max-w-5xl leading-tight mb-24 tracking-tight ">
-          My Name Is <span className="text-[#a5e887]">AlwaysTrue</span>,
+        <h1 className="text-3xl md:text-6xl lg:text-6xl font-mono font-bold max-w-5xl leading-tight mb-24 tracking-tight ">
+          My Name Is <span className="text-[#a5e887]">always</span>
+          <span className="text-[#a5e887] font-black">true</span>,
           <br />
           You Wrote A Bug, Prepare To Die
         </h1>
 
         {/* Description */}
-        <p className="text-gray-400 max-w-3xl mb-24 leading-relaxed text-lg">
+        <p className="text-gray-400 max-w-3xl mb-24 leading-relaxed text-md md:text-lg">
           <span className="text-[#a5e887]">always</span>
           <span className="text-[#a5e887] font-black">true</span> is a cybersecurity company focused on the Cardano ecosystem. We
           specialize in <span className="text-[#64b6ac]">smart contract security and optimization audits</span> and are dedicated to ensuring safe, efficient,
@@ -46,7 +47,7 @@ export default function Home() {
         {/* CTA Button */}
         <a
           href="mailto:contact@alwaystrue.io"
-          className="inline-block bg-gradient-to-r from-[#a5e887] to-[#64b6ac] text-black font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
+          className="text-md md:text-lg inline-block bg-gradient-to-r from-[#a5e887] to-[#64b6ac] text-black font-semibold px-8 py-3 rounded-full hover:opacity-90 transition-opacity"
         >
           Contact Us For An Audit
         </a>
