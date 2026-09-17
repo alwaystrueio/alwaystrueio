@@ -158,12 +158,13 @@ export default function Home() {
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
             <div className="mb-12 flex flex-col gap-6 lg:mb-8 lg:flex-row lg:items-end lg:justify-between">
               <h2 className="max-w-[22ch] font-display text-display-sm text-bone">
-                One engineering team, four practices.
+                We join at any stage of development.
               </h2>
               <p className="max-w-[46ch] text-base leading-relaxed text-muted">
-                Every engagement is staffed from the same group of Cardano
-                engineers, whether it begins as a security review, a product
-                build, or a request for additional capacity.
+                Engagements begin with a finished codebase, a roadmap that is
+                not yet built, or a team that needs additional capacity. In
+                each case the work is staffed from the same group of Cardano
+                engineers.
               </p>
             </div>
             <TransactionFlow />
