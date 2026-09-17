@@ -7,35 +7,74 @@ const EMAIL = "contact@alwaystrue.io";
 const SERVICES = [
   {
     id: "audits",
-    short: "Audits",
-    output: "findings report",
-    title: "Security & optimization audits",
-    body: "We read every path through your validators, model the transaction an attacker would build, and write up what we find with a reproduction and a fix. Optimization passes ship with before-and-after execution budgets, so the saving is a number rather than a claim.",
-    detail: ["Aiken", "Plutus / PlutusTx", "Plutarch", "eUTxO threat modelling"],
+    short: "Security audits",
+    output: "Security audit",
+    title: "Security and optimization audits",
+    body: "We conduct a systematic review of each validator, enumerating the execution paths through the contract and the transactions an adversary could construct against it. Every finding is delivered with a severity rating, a reproduction, and a recommended remediation. Optimization reviews include measured before-and-after execution budgets.",
+    detail: ["Aiken", "Plutus / PlutusTx", "Plutarch", "eUTxO threat modeling"],
   },
   {
     id: "products",
-    short: "Products",
-    output: "shipped product",
+    short: "Product engineering",
+    output: "Delivered product",
     title: "Product engineering",
-    body: "We build Cardano products end to end: on-chain validators, the off-chain services and indexers around them, and the interface on top. Some are ours. Most are someone else's, shipped under their name.",
-    detail: ["On-chain", "Off-chain services", "Indexing", "Front end"],
+    body: "We deliver Cardano products end to end: on-chain validators, the off-chain services and indexers that support them, and the client applications above. Engagements range from discrete components to complete delivery under the client's own name.",
+    detail: ["On-chain", "Off-chain services", "Indexing", "Client applications"],
   },
   {
     id: "engineers",
-    short: "Engineers",
-    output: "embedded engineers",
+    short: "Team augmentation",
+    output: "Embedded engineers",
     title: "Team augmentation",
-    body: "Cardano-fluent engineers who join your repository, your standup and your on-call rotation. They arrive knowing the eUTxO model, so you spend your ramp-up time on your product instead of on the ledger.",
-    detail: ["Embedded", "Senior", "Contract or retainer"],
+    body: "We place senior Cardano engineers within existing teams, integrated into the client's repository, development process, and on-call rotation. Our engineers are experienced in the extended UTxO model and require no ecosystem onboarding.",
+    detail: ["Senior", "Embedded", "Contract or retainer"],
   },
   {
     id: "open-source",
     short: "Open source",
-    output: "upstream commits",
+    output: "Upstream contributions",
     title: "Open source",
-    body: "We depend on the same libraries you do, so we fix them in public rather than in a private fork. The tooling we build for our own audits gets published on the same terms.",
+    body: "We maintain and contribute to the open-source libraries the Cardano ecosystem depends on, and publish the tooling developed for our own audit practice under the same licenses.",
     detail: ["Libraries", "Audit tooling", "Upstream fixes"],
+  },
+] as const;
+
+const CASE_STUDIES = [
+  {
+    id: "audit-one",
+    kind: "Audit",
+    title: "[Protocol name]",
+    body: "[What the system does, what the review covered, and the most significant finding. Two sentences.]",
+    facts: ["[Language]", "[Scope]", "[Date]"],
+    href: null,
+    linkLabel: "Read the report",
+  },
+  {
+    id: "audit-two",
+    kind: "Audit",
+    title: "[Protocol name]",
+    body: "[What the system does, what the review covered, and the most significant finding. Two sentences.]",
+    facts: ["[Language]", "[Scope]", "[Date]"],
+    href: null,
+    linkLabel: "Read the report",
+  },
+  {
+    id: "tool-one",
+    kind: "Open source",
+    title: "[Tool name]",
+    body: "[What the tool does and who uses it. One or two sentences.]",
+    facts: ["[Language]", "[License]"],
+    href: null,
+    linkLabel: "View on GitHub",
+  },
+  {
+    id: "tool-two",
+    kind: "Open source",
+    title: "[Tool name]",
+    body: "[What the tool does and who uses it. One or two sentences.]",
+    facts: ["[Language]", "[License]"],
+    href: null,
+    linkLabel: "View on GitHub",
   },
 ] as const;
 
@@ -54,10 +93,16 @@ export default function Home() {
         </Link>
         <nav className="flex items-center gap-7">
           <a
-            href="#transaction"
+            href="#practices"
             className="label hidden transition-colors hover:text-bone sm:block"
           >
-            What we do
+            Practices
+          </a>
+          <a
+            href="#case-studies"
+            className="label hidden transition-colors hover:text-bone sm:block"
+          >
+            Case studies
           </a>
           <a
             href={`mailto:${EMAIL}`}
@@ -69,23 +114,20 @@ export default function Home() {
       </header>
 
       <main>
-        {/* Hero — quiet and typographic. The diagram below is the loud part. */}
         <section className="mx-auto max-w-[1180px] px-6 pb-24 pt-16 lg:px-10 lg:pb-32 lg:pt-24">
           <p className="label mb-10 lg:mb-14">Cardano smart contract security</p>
           <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20">
-            <h1 className="max-w-[16ch] font-display text-display-sm text-bone md:text-display-md lg:text-display-lg">
-              On-chain, there is no{" "}
-              <em className="italic text-brand">hotfix</em>.
+            <h1 className="max-w-[20ch] font-display text-display-sm text-bone md:text-display-md">
+              Security and engineering for the Cardano ecosystem.
             </h1>
-            {/* Four practices, legible before the fold. */}
             <nav aria-label="Practices" className="lg:pt-3 lg:text-right">
-              <p className="label mb-5">Practice</p>
+              <p className="label mb-5">Practices</p>
               <ul className="border-b border-line">
                 {SERVICES.map((service) => (
                   <li key={service.id} className="rule">
                     <a
                       href={`#${service.id}`}
-                      className="block py-2.5 font-mono text-sm text-muted transition-colors hover:text-bone lg:w-56"
+                      className="block py-2.5 font-mono text-sm text-muted transition-colors hover:text-bone lg:w-60"
                     >
                       {service.short}
                     </a>
@@ -96,37 +138,38 @@ export default function Home() {
           </div>
           <div className="mt-14 max-w-measure lg:mt-16">
             <p className="text-lg leading-relaxed text-muted">
-              <span className="text-bone">alwaystrue</span> audits Cardano smart
-              contracts, builds the products that use them, and embeds engineers
-              in the teams that ship them. We find the bug while it is still
-              cheap — before the ledger makes it permanent.
+              <span className="text-bone">alwaystrue</span> provides independent
+              security audits, product engineering, and embedded engineering
+              teams to organizations building on Cardano. We work in Aiken,
+              Plutus, and Plutarch, and contribute to the open-source libraries
+              the ecosystem depends on.
             </p>
             <a
               href={`mailto:${EMAIL}`}
               className="label mt-10 inline-block border border-brand bg-brand px-6 py-4 !text-ink transition-opacity hover:opacity-85"
             >
-              Start a conversation
+              Request a proposal
             </a>
           </div>
         </section>
 
-        {/* The signature: services as the shape of a transaction. */}
-        <section id="transaction" className="rule scroll-mt-16 bg-ink">
+        {/* Services, arranged as the shape of a Cardano transaction. */}
+        <section id="practices" className="rule scroll-mt-16 bg-ink">
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
             <div className="mb-12 flex flex-col gap-6 lg:mb-8 lg:flex-row lg:items-end lg:justify-between">
-              <h2 className="max-w-[24ch] font-display text-display-sm text-bone">
-                The people who audit your contracts also write them.
+              <h2 className="max-w-[22ch] font-display text-display-sm text-bone">
+                One engineering team, four practices.
               </h2>
-              <p className="max-w-[44ch] text-base leading-relaxed text-muted">
-                Four practices, one team. Bring us a repository, a roadmap or a
-                hiring gap — the work lands with the same engineers either way.
+              <p className="max-w-[46ch] text-base leading-relaxed text-muted">
+                Every engagement is staffed from the same group of Cardano
+                engineers, whether it begins as a security review, a product
+                build, or a request for additional capacity.
               </p>
             </div>
             <TransactionFlow />
           </div>
         </section>
 
-        {/* Each output, expanded. */}
         <section className="rule">
           <div className="mx-auto max-w-[1180px] px-6 lg:px-10">
             <ul>
@@ -163,40 +206,66 @@ export default function Home() {
         </section>
 
         {/*
-          TODO(alwaystrue): these three numbers are the highest-value thing on
-          the page and the only thing here that cannot be written by a
-          competitor. Replace the em-dashes with real figures from real
-          engagements. Do not ship this section with placeholders.
+          TODO(alwaystrue): every string in CASE_STUDIES is a placeholder. Fill
+          in the two audits and the two tools, add the repository or report
+          links, and delete any `href: null` so the link renders. Nothing here
+          is real yet — do not launch this section as it stands.
         */}
-        <section className="rule bg-ink-raised">
+        <section id="case-studies" className="rule scroll-mt-16 bg-ink">
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
-            <p className="label mb-12">On the record</p>
-            <dl className="grid gap-12 sm:grid-cols-3">
-              {[
-                { value: "—", label: "Validators audited" },
-                { value: "—", label: "Execution units reclaimed" },
-                { value: "—", label: "Findings reported" },
-              ].map((stat) => (
-                <div key={stat.label} className="flex flex-col">
-                  <dt className="label order-2 mt-3">{stat.label}</dt>
-                  <dd className="order-1 font-display text-5xl text-bone lg:text-6xl">
-                    {stat.value}
-                  </dd>
-                </div>
+            <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+              <h2 className="max-w-[22ch] font-display text-display-sm text-bone">
+                Case studies
+              </h2>
+              <p className="max-w-[46ch] text-base leading-relaxed text-muted">
+                Two security reviews and two tools we maintain for the
+                ecosystem. Reports are published where the client has agreed to
+                disclosure.
+              </p>
+            </div>
+            <ul className="grid gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-2">
+              {CASE_STUDIES.map((study) => (
+                <li
+                  key={study.id}
+                  className="flex flex-col bg-ink-raised p-8 lg:p-10"
+                >
+                  <p className="label mb-5 !text-teal">{study.kind}</p>
+                  <h3 className="font-display text-2xl leading-tight text-bone lg:text-3xl">
+                    {study.title}
+                  </h3>
+                  <p className="mt-4 text-base leading-relaxed text-muted">
+                    {study.body}
+                  </p>
+                  <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2">
+                    {study.facts.map((fact) => (
+                      <li key={fact} className="label !text-muted">
+                        {fact}
+                      </li>
+                    ))}
+                  </ul>
+                  {study.href ? (
+                    <a
+                      href={study.href}
+                      className="label mt-8 inline-block border-b border-line-bright pb-1 !text-bone transition-colors hover:border-brand hover:!text-brand"
+                    >
+                      {study.linkLabel}
+                    </a>
+                  ) : null}
+                </li>
               ))}
-            </dl>
+            </ul>
           </div>
         </section>
 
         <section className="rule">
           <div className="mx-auto max-w-[1180px] px-6 py-24 lg:px-10 lg:py-32">
             <h2 className="max-w-[24ch] font-display text-display-sm text-bone md:text-display-md">
-              Send us the repository.
+              Request a proposal.
             </h2>
             <p className="mt-8 max-w-measure text-lg leading-relaxed text-muted">
-              Tell us what it does and when it goes to mainnet. We will tell you
-              what an audit would cover, what it would cost, and how long it
-              takes.
+              Send an outline of the system and your intended mainnet date. We
+              will respond with a proposed scope of review, a fee estimate, and
+              an expected timeline.
             </p>
             <a
               href={`mailto:${EMAIL}`}
@@ -210,9 +279,7 @@ export default function Home() {
 
       <footer className="rule">
         <div className="mx-auto flex max-w-[1180px] flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-10">
-          <p className="label">
-            alwaystrue — Cardano smart contract security
-          </p>
+          <p className="label">alwaystrue — Cardano smart contract security</p>
           {/* TODO(alwaystrue): point these at the real accounts. */}
           <nav className="flex gap-7">
             <a href="#" className="label transition-colors hover:text-bone">

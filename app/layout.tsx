@@ -22,14 +22,15 @@ const mono = Martian_Mono({
   subsets: ["latin"],
 });
 
+const DESCRIPTION =
+  "alwaystrue provides independent security audits, product engineering, and embedded engineering teams to organizations building on Cardano.";
+
 export const metadata: Metadata = {
-  title: "alwaystrue — Cardano smart contract audits, products and engineers",
-  description:
-    "alwaystrue audits Cardano smart contracts, builds the products that use them, and embeds engineers in the teams that ship them.",
+  title: "alwaystrue — Security and engineering for the Cardano ecosystem",
+  description: DESCRIPTION,
   openGraph: {
     title: "alwaystrue",
-    description:
-      "Cardano smart contract audits, products and engineers. On-chain, there is no hotfix.",
+    description: DESCRIPTION,
     url: "https://alwaystrue.io",
     siteName: "alwaystrue",
     type: "website",
@@ -37,7 +38,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "alwaystrue",
-    description: "Cardano smart contract audits, products and engineers.",
+    description: DESCRIPTION,
   },
 };
 

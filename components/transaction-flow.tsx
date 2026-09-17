@@ -12,16 +12,16 @@ import { useEffect, useRef, useState } from "react";
  */
 
 const INPUTS = [
-  { id: "contracts", label: "your contracts" },
-  { id: "roadmap", label: "your roadmap" },
-  { id: "team", label: "your team" },
+  { id: "contracts", label: "Smart contracts" },
+  { id: "roadmap", label: "Product roadmap" },
+  { id: "team", label: "Existing team" },
 ] as const;
 
 const OUTPUTS = [
-  { id: "audits", label: "findings report", href: "#audits" },
-  { id: "products", label: "shipped product", href: "#products" },
-  { id: "engineers", label: "embedded engineers", href: "#engineers" },
-  { id: "open-source", label: "upstream commits", href: "#open-source" },
+  { id: "audits", label: "Security audit", href: "#audits" },
+  { id: "products", label: "Delivered product", href: "#products" },
+  { id: "engineers", label: "Embedded engineers", href: "#engineers" },
+  { id: "open-source", label: "Upstream commits", href: "#open-source" },
 ] as const;
 
 // Geometry for the desktop graph. Kept as constants so the boxes and the
@@ -68,7 +68,7 @@ export function TransactionFlow() {
         viewBox={`${-PAD} ${-PAD} ${VB.w + PAD * 2} ${VB.h + PAD * 2}`}
         className="hidden w-full lg:block"
         role="img"
-        aria-label="A Cardano transaction: your contracts, roadmap and team are the inputs; alwaystrue is the validator; the outputs are a findings report, a shipped product, embedded engineers and upstream commits."
+        aria-label="Arranged as a Cardano transaction: smart contracts, a product roadmap and an existing team are the inputs; alwaystrue is the validator; the outputs are a security audit, a delivered product, embedded engineers and upstream commits."
       >
         <g
           stroke="var(--line-bright)"
