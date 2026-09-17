@@ -31,7 +31,7 @@ const PAD = 4;
 const VB = { w: 1040, h: 440 };
 const AXIS = VB.h / 2;
 const IN = { x: 0, w: 200, h: 64, centers: [92, 220, 348] };
-const VAL = { x: 420, w: 200, h: 96 };
+const VAL = { x: 420, w: 200, h: 80 };
 const OUT = { x: 830, w: 210, h: 60, centers: [61, 167, 273, 379] };
 
 export function TransactionFlow() {
@@ -161,25 +161,14 @@ export function TransactionFlow() {
           />
           <text
             x={VAL.x + VAL.w / 2}
-            y={AXIS - 8}
+            y={AXIS + 6}
             fill="var(--brand)"
             textAnchor="middle"
             className="font-mono"
-            fontSize={17}
+            fontSize={18}
             fontWeight={600}
           >
             alwaystrue
-          </text>
-          <text
-            x={VAL.x + VAL.w / 2}
-            y={AXIS + 18}
-            fill="var(--muted)"
-            textAnchor="middle"
-            className="font-mono"
-            fontSize={10}
-            letterSpacing="0.14em"
-          >
-            VALIDATOR
           </text>
         </g>
 
@@ -221,35 +210,10 @@ export function TransactionFlow() {
           );
         })}
 
-        {/* Column headers, sitting on the graph's own baseline */}
-        <text x={IN.x} y={12} className="label" fill="var(--muted)" fontSize={11}>
-          INPUTS
-        </text>
-        <text
-          x={VAL.x + VAL.w / 2}
-          y={12}
-          className="label"
-          fill="var(--muted)"
-          fontSize={11}
-          textAnchor="middle"
-        >
-          SCRIPT
-        </text>
-        <text
-          x={OUT.x + OUT.w}
-          y={12}
-          className="label"
-          fill="var(--muted)"
-          fontSize={11}
-          textAnchor="end"
-        >
-          OUTPUTS
-        </text>
       </svg>
 
       {/* Mobile: the same transaction, stacked */}
       <div className="lg:hidden">
-        <p className="label mb-4">Inputs</p>
         <ul className="space-y-2">
           {INPUTS.map((input) => (
             <li
@@ -263,14 +227,12 @@ export function TransactionFlow() {
 
         <div className="ml-6 h-8 w-px bg-line-bright" aria-hidden />
 
-        <div className="rounded-sm border border-brand bg-ink-raised px-4 py-4">
+        <div className="rounded-sm border border-brand bg-ink-raised px-4 py-5 text-center">
           <p className="font-mono text-base font-semibold text-brand">alwaystrue</p>
-          <p className="label mt-1">Validator</p>
         </div>
 
-        <div className="ml-6 h-8 w-px bg-teal/55" aria-hidden />
+        <div className="ml-6 h-8 w-px bg-teal opacity-60" aria-hidden />
 
-        <p className="label mb-4">Outputs</p>
         <ul className="space-y-2">
           {OUTPUTS.map((output) => (
             <li key={output.id}>

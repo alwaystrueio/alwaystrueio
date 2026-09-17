@@ -113,13 +113,13 @@ export default function Home() {
         {/* The signature: services as the shape of a transaction. */}
         <section id="transaction" className="rule scroll-mt-16 bg-ink">
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
-            <div className="mb-16 flex flex-col gap-6 lg:mb-20 lg:flex-row lg:items-end lg:justify-between">
-              <h2 className="max-w-[22ch] font-display text-display-sm text-bone">
-                Four things go in. Four things come out.
+            <div className="mb-12 flex flex-col gap-6 lg:mb-8 lg:flex-row lg:items-end lg:justify-between">
+              <h2 className="max-w-[24ch] font-display text-display-sm text-bone">
+                The people who audit your contracts also write them.
               </h2>
               <p className="max-w-[44ch] text-base leading-relaxed text-muted">
-                A Cardano transaction consumes its inputs, runs a validator, and
-                produces outputs. So does working with us.
+                Four practices, one team. Bring us a repository, a roadmap or a
+                hiring gap — the work lands with the same engineers either way.
               </p>
             </div>
             <TransactionFlow />
