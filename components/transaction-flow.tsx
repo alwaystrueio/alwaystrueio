@@ -21,7 +21,7 @@ const OUTPUTS = [
   { id: "audits", label: "Security audit", href: "#audits" },
   { id: "products", label: "Delivered product", href: "#products" },
   { id: "engineers", label: "Embedded engineers", href: "#engineers" },
-  { id: "open-source", label: "Upstream commits", href: "#open-source" },
+  { id: "open-source", label: "Upstream contributions", href: "#open-source" },
 ] as const;
 
 // Geometry for the desktop graph. Kept as constants so the boxes and the
@@ -32,7 +32,7 @@ const VB = { w: 1040, h: 440 };
 const AXIS = VB.h / 2;
 const IN = { x: 0, w: 200, h: 64, centers: [92, 220, 348] };
 const VAL = { x: 420, w: 200, h: 80 };
-const OUT = { x: 830, w: 210, h: 60, centers: [61, 167, 273, 379] };
+const OUT = { x: 800, w: 240, h: 60, centers: [61, 167, 273, 379] };
 
 export function TransactionFlow() {
   const ref = useRef<HTMLDivElement>(null);
@@ -68,7 +68,7 @@ export function TransactionFlow() {
         viewBox={`${-PAD} ${-PAD} ${VB.w + PAD * 2} ${VB.h + PAD * 2}`}
         className="hidden w-full lg:block"
         role="img"
-        aria-label="Arranged as a Cardano transaction: smart contracts, a product roadmap and an existing team are the inputs; alwaystrue is the validator; the outputs are a security audit, a delivered product, embedded engineers and upstream commits."
+        aria-label="Arranged as a Cardano transaction: smart contracts, a product roadmap and an existing team are the inputs; alwaystrue is the validator; the outputs are a security audit, a delivered product, embedded engineers and upstream contributions."
       >
         <g
           stroke="var(--line-bright)"
