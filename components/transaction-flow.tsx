@@ -34,6 +34,26 @@ const IN = { x: 0, w: 200, h: 64, centers: [92, 220, 348] };
 const VAL = { x: 420, w: 200, h: 80 };
 const OUT = { x: 800, w: 240, h: 60, centers: [61, 167, 273, 379] };
 
+// Portrait geometry for small screens. Converging curves need horizontal room
+// that a phone does not have, so the connectors run as a trunk down the left
+// gutter with a tap into each box — the same topology, drawn as a bus.
+const M_W = 340;
+const M_TRUNK = 16;
+const M_BOX_X = 44;
+const M_ROW = 48;
+const M_GAP = 12;
+const M_STEP = M_ROW + M_GAP;
+const M_VAL_H = 64;
+const M_LEAD = 46;
+
+const mInCenter = (i: number) => i * M_STEP + M_ROW / 2;
+const M_IN_BOTTOM = INPUTS.length * M_STEP - M_GAP;
+const M_VAL_TOP = M_IN_BOTTOM + M_LEAD;
+const M_VAL_BOTTOM = M_VAL_TOP + M_VAL_H;
+const M_OUT_TOP = M_VAL_BOTTOM + M_LEAD;
+const mOutCenter = (i: number) => M_OUT_TOP + i * M_STEP + M_ROW / 2;
+const M_H = M_OUT_TOP + OUTPUTS.length * M_STEP - M_GAP;
+
 export function TransactionFlow() {
   const ref = useRef<HTMLDivElement>(null);
   const [live, setLive] = useState(false);
@@ -67,9 +87,13 @@ export function TransactionFlow() {
       <svg
         viewBox={`${-PAD} ${-PAD} ${VB.w + PAD * 2} ${VB.h + PAD * 2}`}
         className="hidden w-full lg:block"
-        role="img"
-        aria-label="Arranged as a Cardano transaction: smart contracts, a product roadmap and an existing team are the inputs; alwaystrue is the validator; the outputs are a security audit, a delivered product, embedded engineers and upstream contributions."
       >
+        <title>
+          Arranged as a Cardano transaction: smart contracts, a product roadmap
+          and an existing team are the inputs; alwaystrue is the validator; the
+          outputs are a security audit, a delivered product, embedded engineers
+          and upstream contributions.
+        </title>
         <g
           stroke="var(--line-bright)"
           strokeWidth={1.25}
@@ -212,40 +236,176 @@ export function TransactionFlow() {
 
       </svg>
 
-      {/* Mobile: the same transaction, stacked */}
-      <div className="lg:hidden">
-        <ul className="space-y-2">
-          {INPUTS.map((input) => (
-            <li
-              key={input.id}
-              className="rounded-sm border border-line bg-ink-raised px-4 py-3 font-mono text-[13px] text-muted"
-            >
-              {input.label}
-            </li>
+      {/* Small screens: the same transaction, drawn in portrait */}
+      <svg
+        viewBox={`${-PAD} ${-PAD} ${M_W + PAD * 2} ${M_H + PAD * 2}`}
+        className="w-full max-w-[420px] lg:hidden"
+      >
+        <title>
+          Arranged as a Cardano transaction: smart contracts, a product roadmap
+          and an existing team pass through alwaystrue, producing a security
+          audit, a delivered product, embedded engineers and upstream
+          contributions.
+        </title>
+
+        <g strokeWidth={1.25} fill="none">
+          {/* Trunk and taps above the validator */}
+          <path
+            d={`M ${M_TRUNK},${mInCenter(0)} V ${M_VAL_TOP}`}
+            stroke="var(--line-bright)"
+            pathLength={1}
+            strokeDasharray={1}
+            strokeDashoffset={live ? 0 : 1}
+            style={{
+              transition: "stroke-dashoffset 0.9s cubic-bezier(0.16,1,0.3,1)",
+              transitionDelay: "0.1s",
+            }}
+          />
+          {INPUTS.map((input, i) => (
+            <path
+              key={`m-in-${input.id}`}
+              d={`M ${M_TRUNK},${mInCenter(i)} H ${M_BOX_X}`}
+              stroke="var(--line-bright)"
+              pathLength={1}
+              strokeDasharray={1}
+              strokeDashoffset={live ? 0 : 1}
+              style={{
+                transition: "stroke-dashoffset 0.5s cubic-bezier(0.16,1,0.3,1)",
+                transitionDelay: `${0.25 + i * 0.07}s`,
+              }}
+            />
           ))}
-        </ul>
 
-        <div className="ml-6 h-8 w-px bg-line-bright" aria-hidden />
+          {/* Trunk and taps below it */}
+          <path
+            d={`M ${M_TRUNK},${M_VAL_BOTTOM} V ${mOutCenter(OUTPUTS.length - 1)}`}
+            stroke="var(--teal)"
+            strokeOpacity={0.55}
+            pathLength={1}
+            strokeDasharray={1}
+            strokeDashoffset={live ? 0 : 1}
+            style={{
+              transition: "stroke-dashoffset 0.9s cubic-bezier(0.16,1,0.3,1)",
+              transitionDelay: "0.55s",
+            }}
+          />
+          {OUTPUTS.map((output, i) => (
+            <path
+              key={`m-out-${output.id}`}
+              d={`M ${M_TRUNK},${mOutCenter(i)} H ${M_BOX_X}`}
+              stroke="var(--teal)"
+              strokeOpacity={0.55}
+              pathLength={1}
+              strokeDasharray={1}
+              strokeDashoffset={live ? 0 : 1}
+              style={{
+                transition: "stroke-dashoffset 0.5s cubic-bezier(0.16,1,0.3,1)",
+                transitionDelay: `${0.7 + i * 0.07}s`,
+              }}
+            />
+          ))}
+        </g>
 
-        <div className="rounded-sm border border-brand bg-ink-raised px-4 py-5 text-center">
-          <p className="font-mono text-base font-semibold text-brand">alwaystrue</p>
-        </div>
+        {INPUTS.map((input, i) => {
+          const cy = mInCenter(i);
+          return (
+            <g
+              key={`m-box-${input.id}`}
+              style={{
+                opacity: live ? 1 : 0,
+                transition: "opacity 0.6s",
+                transitionDelay: `${0.25 + i * 0.07}s`,
+              }}
+            >
+              <rect
+                x={M_BOX_X}
+                y={cy - M_ROW / 2}
+                width={M_W - M_BOX_X}
+                height={M_ROW}
+                rx={3}
+                fill="var(--ink-raised)"
+                stroke="var(--line)"
+              />
+              <text
+                x={M_BOX_X + 16}
+                y={cy + 5}
+                fill="var(--muted)"
+                className="font-mono"
+                fontSize={14}
+              >
+                {input.label}
+              </text>
+            </g>
+          );
+        })}
 
-        <div className="ml-6 h-8 w-px bg-teal opacity-60" aria-hidden />
+        {/* The validator spans the full width: everything passes through it. */}
+        <g
+          style={{
+            opacity: live ? 1 : 0,
+            transition: "opacity 0.7s",
+            transitionDelay: "0.45s",
+          }}
+        >
+          <rect
+            x={0}
+            y={M_VAL_TOP}
+            width={M_W}
+            height={M_VAL_H}
+            rx={3}
+            fill="var(--ink-raised)"
+            stroke="var(--brand)"
+            strokeWidth={1.5}
+          />
+          <text
+            x={M_W / 2}
+            y={M_VAL_TOP + M_VAL_H / 2 + 6}
+            fill="var(--brand)"
+            textAnchor="middle"
+            className="font-mono"
+            fontSize={18}
+            fontWeight={600}
+          >
+            alwaystrue
+          </text>
+        </g>
 
-        <ul className="space-y-2">
-          {OUTPUTS.map((output) => (
-            <li key={output.id}>
-              <a
-                href={output.href}
-                className="block rounded-sm border border-line-bright bg-ink-raised px-4 py-3 font-mono text-[13px] text-bone transition-colors hover:border-brand"
+        {OUTPUTS.map((output, i) => {
+          const cy = mOutCenter(i);
+          return (
+            <a
+              key={`m-box-${output.id}`}
+              href={output.href}
+              className="group"
+              style={{
+                opacity: live ? 1 : 0,
+                transition: "opacity 0.6s",
+                transitionDelay: `${0.7 + i * 0.07}s`,
+              }}
+            >
+              <rect
+                x={M_BOX_X}
+                y={cy - M_ROW / 2}
+                width={M_W - M_BOX_X}
+                height={M_ROW}
+                rx={3}
+                fill="var(--ink-raised)"
+                stroke="var(--line-bright)"
+                className="transition-colors group-hover:stroke-brand"
+              />
+              <text
+                x={M_BOX_X + 16}
+                y={cy + 5}
+                fill="var(--bone)"
+                className="font-mono"
+                fontSize={14}
               >
                 {output.label}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
+              </text>
+            </a>
+          );
+        })}
+      </svg>
     </div>
   );
 }
