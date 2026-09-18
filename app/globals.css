@@ -74,8 +74,8 @@
   }
 
   .flow-pulse {
-    stroke-dasharray: 0.055 0.945;
-    animation: flow 3.2s linear infinite;
+    stroke-dasharray: 0.07 0.93;
+    animation: flow 1.8s linear infinite;
   }
 }
 

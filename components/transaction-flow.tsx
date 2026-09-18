@@ -69,8 +69,58 @@ const mOutPath = (i: number) =>
 
 // Outputs lag inputs by roughly half a cycle, so a pulse appears to arrive at
 // the validator before another leaves it.
-const PULSE_IN = (i: number) => `${i * 0.36}s`;
-const PULSE_OUT = (i: number) => `${1.6 + i * 0.36}s`;
+const PULSE_IN = (i: number) => `${i * 0.2}s`;
+const PULSE_OUT = (i: number) => `${0.9 + i * 0.2}s`;
+
+// A blurred halo under a tighter core reads as light rather than as a dash.
+// Both layers share the dash pattern and delay so they stay registered.
+function Pulses({
+  paths,
+  delays,
+  width,
+  opacity,
+  filter,
+}: {
+  paths: string[];
+  delays: string[];
+  width: number;
+  opacity: number;
+  filter?: string;
+}) {
+  return (
+    <g
+      stroke="var(--brand)"
+      strokeWidth={width}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      fill="none"
+      opacity={opacity}
+      filter={filter}
+    >
+      {paths.map((d, i) => (
+        <path
+          key={i}
+          className="flow-pulse"
+          d={d}
+          pathLength={1}
+          style={{ animationDelay: delays[i] }}
+        />
+      ))}
+    </g>
+  );
+}
+
+// The default filter region clips a blur on a narrow bounding box, which the
+// portrait trunk paths have.
+function GlowFilter({ id, blur }: { id: string; blur: number }) {
+  return (
+    <defs>
+      <filter id={id} x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation={blur} />
+      </filter>
+    </defs>
+  );
+}
 
 export function TransactionFlow() {
   const ref = useRef<HTMLDivElement>(null);
@@ -98,6 +148,23 @@ export function TransactionFlow() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  const widePaths = [
+    ...IN.centers.map((_, i) => inPath(i)),
+    ...OUT.centers.map((_, i) => outPath(i)),
+  ];
+  const wideDelays = [
+    ...IN.centers.map((_, i) => PULSE_IN(i)),
+    ...OUT.centers.map((_, i) => PULSE_OUT(i)),
+  ];
+  const portraitPaths = [
+    ...INPUTS.map((_, i) => mInPath(i)),
+    ...OUTPUTS.map((_, i) => mOutPath(i)),
+  ];
+  const portraitDelays = [
+    ...INPUTS.map((_, i) => PULSE_IN(i)),
+    ...OUTPUTS.map((_, i) => PULSE_OUT(i)),
+  ];
 
   return (
     <div ref={ref}>
@@ -149,35 +216,29 @@ export function TransactionFlow() {
         </g>
 
         {/* The live signal: what goes in, and what comes back out. */}
+        <GlowFilter id="pulse-glow-wide" blur={4} />
         <g
-          stroke="var(--brand)"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          fill="none"
           style={{
             opacity: live ? 1 : 0,
             transition: "opacity 0.6s",
             transitionDelay: "1.4s",
           }}
         >
-          {IN.centers.map((_, i) => (
-            <path
-              key={`in-pulse-${i}`}
-              className="flow-pulse"
-              d={inPath(i)}
-              pathLength={1}
-              style={{ animationDelay: PULSE_IN(i) }}
-            />
-          ))}
-          {OUT.centers.map((_, i) => (
-            <path
-              key={`out-pulse-${i}`}
-              className="flow-pulse"
-              d={outPath(i)}
-              pathLength={1}
-              style={{ animationDelay: PULSE_OUT(i) }}
-            />
-          ))}
+          <Pulses
+            paths={widePaths}
+            delays={wideDelays}
+            width={9}
+            opacity={0.5}
+            filter="url(#pulse-glow-wide)"
+          />
+          <Pulses
+            paths={widePaths}
+            delays={wideDelays}
+            width={4}
+            opacity={0.55}
+            filter="url(#pulse-glow-wide)"
+          />
+          <Pulses paths={widePaths} delays={wideDelays} width={1.5} opacity={0.95} />
         </g>
 
         {/* Inputs */}
@@ -356,36 +417,34 @@ export function TransactionFlow() {
           ))}
         </g>
 
+        <GlowFilter id="pulse-glow-portrait" blur={4} />
         <g
-          stroke="var(--brand)"
-          strokeWidth={2.5}
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          fill="none"
           style={{
             opacity: live ? 1 : 0,
             transition: "opacity 0.6s",
             transitionDelay: "1.4s",
           }}
         >
-          {INPUTS.map((input, i) => (
-            <path
-              key={`m-in-pulse-${input.id}`}
-              className="flow-pulse"
-              d={mInPath(i)}
-              pathLength={1}
-              style={{ animationDelay: PULSE_IN(i) }}
-            />
-          ))}
-          {OUTPUTS.map((output, i) => (
-            <path
-              key={`m-out-pulse-${output.id}`}
-              className="flow-pulse"
-              d={mOutPath(i)}
-              pathLength={1}
-              style={{ animationDelay: PULSE_OUT(i) }}
-            />
-          ))}
+          <Pulses
+            paths={portraitPaths}
+            delays={portraitDelays}
+            width={9}
+            opacity={0.5}
+            filter="url(#pulse-glow-portrait)"
+          />
+          <Pulses
+            paths={portraitPaths}
+            delays={portraitDelays}
+            width={4}
+            opacity={0.55}
+            filter="url(#pulse-glow-portrait)"
+          />
+          <Pulses
+            paths={portraitPaths}
+            delays={portraitDelays}
+            width={1.5}
+            opacity={0.95}
+          />
         </g>
 
         {INPUTS.map((input, i) => {
