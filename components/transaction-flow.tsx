@@ -239,7 +239,7 @@ export function TransactionFlow() {
       {/* Small screens: the same transaction, drawn in portrait */}
       <svg
         viewBox={`${-PAD} ${-PAD} ${M_W + PAD * 2} ${M_H + PAD * 2}`}
-        className="w-full max-w-[420px] lg:hidden"
+        className="mx-auto w-full max-w-[420px] lg:hidden"
       >
         <title>
           Arranged as a Cardano transaction: smart contracts, a product roadmap
