@@ -54,6 +54,24 @@ const M_OUT_TOP = M_VAL_BOTTOM + M_LEAD;
 const mOutCenter = (i: number) => M_OUT_TOP + i * M_STEP + M_ROW / 2;
 const M_H = M_OUT_TOP + OUTPUTS.length * M_STEP - M_GAP;
 
+// Connector geometry, shared by the static line and the pulse that rides it.
+const inPath = (i: number) =>
+  `M ${IN.w},${IN.centers[i]} C ${IN.w + 100},${IN.centers[i]} ${IN.w + 130},${AXIS} ${VAL.x},${AXIS}`;
+const outPath = (i: number) =>
+  `M ${VAL.x + VAL.w},${AXIS} C ${VAL.x + VAL.w + 100},${AXIS} ${OUT.x - 80},${OUT.centers[i]} ${OUT.x},${OUT.centers[i]}`;
+
+// Portrait routes run box -> trunk -> validator, and back out again, so a
+// pulse travels the whole way rather than hopping between segments.
+const mInPath = (i: number) =>
+  `M ${M_BOX_X},${mInCenter(i)} H ${M_TRUNK} V ${M_VAL_TOP}`;
+const mOutPath = (i: number) =>
+  `M ${M_TRUNK},${M_VAL_BOTTOM} V ${mOutCenter(i)} H ${M_BOX_X}`;
+
+// Outputs lag inputs by roughly half a cycle, so a pulse appears to arrive at
+// the validator before another leaves it.
+const PULSE_IN = (i: number) => `${i * 0.36}s`;
+const PULSE_OUT = (i: number) => `${1.6 + i * 0.36}s`;
+
 export function TransactionFlow() {
   const ref = useRef<HTMLDivElement>(null);
   const [live, setLive] = useState(false);
@@ -100,10 +118,10 @@ export function TransactionFlow() {
           fill="none"
           style={{ opacity: live ? 1 : 0, transition: "opacity 0.3s" }}
         >
-          {IN.centers.map((cy, i) => (
+          {IN.centers.map((_, i) => (
             <path
               key={`in-${i}`}
-              d={`M ${IN.w},${cy} C ${IN.w + 100},${cy} ${IN.w + 130},${AXIS} ${VAL.x},${AXIS}`}
+              d={inPath(i)}
               pathLength={1}
               strokeDasharray={1}
               strokeDashoffset={live ? 0 : 1}
@@ -113,10 +131,10 @@ export function TransactionFlow() {
               }}
             />
           ))}
-          {OUT.centers.map((cy, i) => (
+          {OUT.centers.map((_, i) => (
             <path
               key={`out-${i}`}
-              d={`M ${VAL.x + VAL.w},${AXIS} C ${VAL.x + VAL.w + 100},${AXIS} ${OUT.x - 80},${cy} ${OUT.x},${cy}`}
+              d={outPath(i)}
               pathLength={1}
               strokeDasharray={1}
               strokeDashoffset={live ? 0 : 1}
@@ -126,6 +144,38 @@ export function TransactionFlow() {
                 transition: "stroke-dashoffset 0.9s cubic-bezier(0.16,1,0.3,1)",
                 transitionDelay: `${0.55 + i * 0.09}s`,
               }}
+            />
+          ))}
+        </g>
+
+        {/* The live signal: what goes in, and what comes back out. */}
+        <g
+          stroke="var(--brand)"
+          strokeWidth={2.5}
+          strokeLinecap="round"
+          fill="none"
+          style={{
+            opacity: live ? 1 : 0,
+            transition: "opacity 0.6s",
+            transitionDelay: "1.4s",
+          }}
+        >
+          {IN.centers.map((_, i) => (
+            <path
+              key={`in-pulse-${i}`}
+              className="flow-pulse"
+              d={inPath(i)}
+              pathLength={1}
+              style={{ animationDelay: PULSE_IN(i) }}
+            />
+          ))}
+          {OUT.centers.map((_, i) => (
+            <path
+              key={`out-pulse-${i}`}
+              className="flow-pulse"
+              d={outPath(i)}
+              pathLength={1}
+              style={{ animationDelay: PULSE_OUT(i) }}
             />
           ))}
         </g>
@@ -302,6 +352,38 @@ export function TransactionFlow() {
                 transition: "stroke-dashoffset 0.5s cubic-bezier(0.16,1,0.3,1)",
                 transitionDelay: `${0.7 + i * 0.07}s`,
               }}
+            />
+          ))}
+        </g>
+
+        <g
+          stroke="var(--brand)"
+          strokeWidth={2.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          style={{
+            opacity: live ? 1 : 0,
+            transition: "opacity 0.6s",
+            transitionDelay: "1.4s",
+          }}
+        >
+          {INPUTS.map((input, i) => (
+            <path
+              key={`m-in-pulse-${input.id}`}
+              className="flow-pulse"
+              d={mInPath(i)}
+              pathLength={1}
+              style={{ animationDelay: PULSE_IN(i) }}
+            />
+          ))}
+          {OUTPUTS.map((output, i) => (
+            <path
+              key={`m-out-pulse-${output.id}`}
+              className="flow-pulse"
+              d={mOutPath(i)}
+              pathLength={1}
+              style={{ animationDelay: PULSE_OUT(i) }}
             />
           ))}
         </g>

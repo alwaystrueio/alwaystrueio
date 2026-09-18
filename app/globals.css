@@ -60,6 +60,25 @@
   }
 }
 
+@layer utilities {
+  /* A short dash travelling the length of a connector, looping seamlessly:
+     the pattern period equals the normalised pathLength, so offset 1 and
+     offset 0 are the same position. */
+  @keyframes flow {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .flow-pulse {
+    stroke-dasharray: 0.055 0.945;
+    animation: flow 3.2s linear infinite;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -68,5 +87,9 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .flow-pulse {
+    display: none;
   }
 }
