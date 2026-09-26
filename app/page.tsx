@@ -1,8 +1,7 @@
-import Image from "next/image";
-import Link from "next/link";
 import { TransactionFlow } from "@/components/transaction-flow";
-
-const EMAIL = "contact@alwaystrue.io";
+import { SiteHeader, EMAIL } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { CASE_STUDIES as PUBLISHED, caseStudyPath } from "@/lib/case-studies";
 
 const SERVICES = [
   {
@@ -19,7 +18,12 @@ const SERVICES = [
     output: "Delivered product",
     title: "Product engineering",
     body: "We deliver Cardano products end to end: on-chain validators, the off-chain services and indexers that support them, and the client applications above. Engagements range from discrete components to complete delivery under the client's own name.",
-    detail: ["On-chain", "Off-chain services", "Indexing", "Client applications"],
+    detail: [
+      "On-chain",
+      "Off-chain services",
+      "Indexing",
+      "Client applications",
+    ],
   },
   {
     id: "engineers",
@@ -39,83 +43,26 @@ const SERVICES = [
   },
 ] as const;
 
-const CASE_STUDIES = [
-  {
-    id: "audit-one",
-    kind: "Audit",
-    title: "[Protocol name]",
-    body: "[What the system does, what the review covered, and the most significant finding. Two sentences.]",
-    facts: ["[Language]", "[Scope]", "[Date]"],
-    href: null,
-    linkLabel: "Read the report",
-  },
-  {
-    id: "audit-two",
-    kind: "Audit",
-    title: "[Protocol name]",
-    body: "[What the system does, what the review covered, and the most significant finding. Two sentences.]",
-    facts: ["[Language]", "[Scope]", "[Date]"],
-    href: null,
-    linkLabel: "Read the report",
-  },
-  {
-    id: "tool-one",
-    kind: "Open source",
-    title: "[Tool name]",
-    body: "[What the tool does and who uses it. One or two sentences.]",
-    facts: ["[Language]", "[License]"],
-    href: null,
-    linkLabel: "View on GitHub",
-  },
-  {
-    id: "tool-two",
-    kind: "Open source",
-    title: "[Tool name]",
-    body: "[What the tool does and who uses it. One or two sentences.]",
-    facts: ["[Language]", "[License]"],
-    href: null,
-    linkLabel: "View on GitHub",
-  },
-] as const;
+const CASE_STUDIES = PUBLISHED.map((study) => ({
+  id: study.slug,
+  kind: study.kind === "Security audit" ? "Audit" : "Open source",
+  title: study.title,
+  body: study.card.body,
+  facts: study.card.facts,
+  href: caseStudyPath(study),
+  linkLabel: "Read the case study",
+}));
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-ink">
-      <header className="mx-auto flex max-w-[1180px] items-center justify-between px-6 py-6 lg:px-10">
-        <Link href="/" aria-label="alwaystrue home" className="shrink-0">
-          <Image
-            src="/logo-solid-con-texto-verde.svg"
-            alt="alwaystrue"
-            width={150}
-            height={32}
-            priority
-          />
-        </Link>
-        <nav className="flex items-center gap-7">
-          <a
-            href="#practices"
-            className="label hidden transition-colors hover:text-bone sm:block"
-          >
-            Practices
-          </a>
-          <a
-            href="#case-studies"
-            className="label hidden transition-colors hover:text-bone sm:block"
-          >
-            Case studies
-          </a>
-          <a
-            href={`mailto:${EMAIL}`}
-            className="label border border-line-bright px-4 py-2.5 !text-bone transition-colors hover:border-brand hover:!text-brand"
-          >
-            Contact
-          </a>
-        </nav>
-      </header>
+      <SiteHeader />
 
       <main>
         <section className="mx-auto max-w-[1180px] px-6 pb-24 pt-16 lg:px-10 lg:pb-32 lg:pt-24">
-          <p className="label mb-10 lg:mb-14">Cardano smart contract security</p>
+          <p className="label mb-10 lg:mb-14">
+            Cardano smart contract security
+          </p>
           <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20">
             <h1 className="max-w-[20ch] font-display text-display-sm text-bone md:text-display-md">
               Security and engineering for the Cardano ecosystem.
@@ -162,8 +109,8 @@ export default function Home() {
               </h2>
               <p className="max-w-[46ch] text-base leading-relaxed text-muted">
                 Engagements begin with a finished codebase, a roadmap that is
-                not yet built, or a team that needs additional capacity. In
-                each case the work is staffed from the same group of Cardano
+                not yet built, or a team that needs additional capacity. In each
+                case the work is staffed from the same group of Cardano
                 engineers.
               </p>
             </div>
@@ -206,12 +153,6 @@ export default function Home() {
           </div>
         </section>
 
-        {/*
-          TODO(alwaystrue): every string in CASE_STUDIES is a placeholder. Fill
-          in the two audits and the two tools, add the repository or report
-          links, and delete any `href: null` so the link renders. Nothing here
-          is real yet — do not launch this section as it stands.
-        */}
         <section id="case-studies" className="rule scroll-mt-16 bg-ink">
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
             <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
@@ -219,9 +160,9 @@ export default function Home() {
                 Case studies
               </h2>
               <p className="max-w-[46ch] text-base leading-relaxed text-muted">
-                Two security reviews and two tools we maintain for the
-                ecosystem. Reports are published where the client has agreed to
-                disclosure.
+                Two security reviews and two open-source projects we lead for
+                the ecosystem. Reports are published where the client has agreed
+                to disclosure.
               </p>
             </div>
             <ul className="grid gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-2">
@@ -244,14 +185,12 @@ export default function Home() {
                       </li>
                     ))}
                   </ul>
-                  {study.href ? (
-                    <a
-                      href={study.href}
-                      className="label mt-8 inline-block border-b border-line-bright pb-1 !text-bone transition-colors hover:border-brand hover:!text-brand"
-                    >
-                      {study.linkLabel}
-                    </a>
-                  ) : null}
+                  <a
+                    href={study.href}
+                    className="label mt-8 inline-block border-b border-line-bright pb-1 !text-bone transition-colors hover:border-brand hover:!text-brand"
+                  >
+                    {study.linkLabel}
+                  </a>
                 </li>
               ))}
             </ul>
@@ -278,26 +217,7 @@ export default function Home() {
         </section>
       </main>
 
-      <footer className="rule">
-        <div className="mx-auto flex max-w-[1180px] flex-col gap-6 px-6 py-10 sm:flex-row sm:items-center sm:justify-between lg:px-10">
-          <p className="label">alwaystrue — Cardano smart contract security</p>
-          {/* TODO(alwaystrue): point these at the real accounts. */}
-          <nav className="flex gap-7">
-            <a href="#" className="label transition-colors hover:text-bone">
-              GitHub
-            </a>
-            <a href="#" className="label transition-colors hover:text-bone">
-              X
-            </a>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="label transition-colors hover:text-bone"
-            >
-              Email
-            </a>
-          </nav>
-        </div>
-      </footer>
+      <SiteFooter />
     </div>
   );
 }

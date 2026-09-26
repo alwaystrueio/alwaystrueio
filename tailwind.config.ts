@@ -20,6 +20,21 @@ export default {
         muted: "var(--muted)",
         brand: "var(--brand)",
         teal: "var(--teal)",
+        // Finding severities and statuses, matching the colours used in the
+        // published PDF reports so a reader moving between the two sees the
+        // same code.
+        severity: {
+          critical: "#eb6f92",
+          major: "#ea9a97",
+          minor: "#f6c177",
+          enhancement: "#a19aea",
+          info: "#e0def4",
+        },
+        status: {
+          resolved: "#73d480",
+          acknowledged: "#f1a03a",
+          identified: "#ed706b",
+        },
       },
       fontFamily: {
         display: ["var(--font-display)", "Georgia", "serif"],
