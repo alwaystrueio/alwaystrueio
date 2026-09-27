@@ -1,4 +1,5 @@
 import { TransactionFlow } from "@/components/transaction-flow";
+import { CrtHero, GlitchText } from "@/components/crt-hero";
 import { SiteHeader, EMAIL } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CASE_STUDIES as PUBLISHED, caseStudyPath } from "@/lib/case-studies";
@@ -59,46 +60,51 @@ export default function Home() {
       <SiteHeader />
 
       <main>
-        <section className="mx-auto max-w-[1180px] px-6 pb-24 pt-16 lg:px-10 lg:pb-32 lg:pt-24">
-          <p className="label mb-10 lg:mb-14">
-            Cardano smart contract security
-          </p>
-          <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20">
-            <h1 className="max-w-[20ch] font-display text-display-sm text-bone md:text-display-md">
-              Security and engineering for the Cardano ecosystem.
-            </h1>
-            <nav aria-label="Practices" className="lg:pt-3 lg:text-right">
-              <p className="label mb-5">Practices</p>
-              <ul className="border-b border-line">
-                {SERVICES.map((service) => (
-                  <li key={service.id} className="rule">
-                    <a
-                      href={`#${service.id}`}
-                      className="block py-2.5 font-mono text-sm text-muted transition-colors hover:text-bone lg:w-60"
-                    >
-                      {service.short}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-          </div>
-          <div className="mt-14 max-w-measure lg:mt-16">
-            <p className="text-lg leading-relaxed text-muted">
-              <span className="text-bone">alwaystrue</span> provides independent
-              security audits, product engineering, and embedded engineering
-              teams to organizations building on Cardano. We work in Aiken,
-              Plutus, and Plutarch, and contribute to the open-source libraries
-              the ecosystem depends on.
+        <CrtHero>
+          <div className="mx-auto max-w-[1180px] px-6 pb-24 pt-16 lg:px-10 lg:pb-32 lg:pt-24">
+            <p className="label mb-10 lg:mb-14">
+              Cardano smart contract security
             </p>
-            <a
-              href={`mailto:${EMAIL}`}
-              className="label mt-10 inline-block border border-brand bg-brand px-6 py-4 !text-ink transition-opacity hover:opacity-85"
-            >
-              Request a proposal
-            </a>
+            <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-20">
+              <GlitchText
+                as="h1"
+                className="max-w-[20ch] font-display text-display-sm text-bone md:text-display-md"
+              >
+                Security and engineering for the Cardano ecosystem.
+              </GlitchText>
+              <nav aria-label="Practices" className="lg:pt-3 lg:text-right">
+                <p className="label mb-5">Practices</p>
+                <ul className="border-b border-line">
+                  {SERVICES.map((service) => (
+                    <li key={service.id} className="rule">
+                      <a
+                        href={`#${service.id}`}
+                        className="block py-2.5 font-mono text-sm text-muted transition-colors hover:text-bone lg:w-60"
+                      >
+                        {service.short}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </div>
+            <div className="mt-14 max-w-measure lg:mt-16">
+              <p className="text-lg leading-relaxed text-muted">
+                <span className="text-bone">alwaystrue</span> provides
+                independent security audits, product engineering, and embedded
+                engineering teams to organizations building on Cardano. We work
+                in Aiken, Plutus, and Plutarch, and contribute to the
+                open-source libraries the ecosystem depends on.
+              </p>
+              <a
+                href={`mailto:${EMAIL}`}
+                className="label mt-10 inline-block border border-brand bg-brand px-6 py-4 !text-ink transition-opacity hover:opacity-85"
+              >
+                Request a proposal
+              </a>
+            </div>
           </div>
-        </section>
+        </CrtHero>
 
         {/* Services, arranged as the shape of a Cardano transaction. */}
         <section id="practices" className="rule scroll-mt-16 bg-ink">

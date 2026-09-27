@@ -1,0 +1,75 @@
+/* Styles for <CrtHero /> and <GlitchText />. The timing and canvas constants
+   live at the top of crt-hero.tsx. */
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  /* The canvas paints this same colour, read at runtime, so the two never
+     disagree. */
+  background-color: var(--ink, #0a0e14);
+}
+
+.canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+  /* Ease the scanlines in from whatever sits above the hero instead of
+     starting them on a hard edge. */
+  mask-image: linear-gradient(to bottom, transparent, #000 96px);
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+}
+
+.glitch {
+  /* Anchors the aria-hidden layers to the box the real text reserves. */
+  position: relative;
+}
+
+/* The real content. It stays in normal flow so it sets the element's size,
+   and it is what assistive tech reads. It is transparent because the base
+   layer draws the visible copy on top of it. */
+.real,
+.real * {
+  color: transparent !important;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Once the real text's line breaks are measured, the layers carry those
+   breaks as explicit newlines, so a scrambled line can never re-wrap. */
+.locked .layer {
+  white-space: pre;
+}
+
+.green,
+.red,
+.slice {
+  opacity: 0;
+}
+
+.green,
+.red {
+  mix-blend-mode: screen;
+}
+
+/* The tint has to win over any colour on nested markup. */
+.green,
+.green * {
+  color: #5dcaa5 !important;
+}
+
+.red,
+.red * {
+  color: #e24b4a !important;
+}
