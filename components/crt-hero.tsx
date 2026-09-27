@@ -28,11 +28,11 @@ import styles from "./crt-hero.module.css";
  * Also adjustable: PHASE_MAX_MS, RAMP_MS, REROLL_MS, FLICKER_MS, SLICE_MAX_PX,
  * CHROMA_OPACITY, and the canvas geometry and colours below them.
  *
- * Contrast: the dimmest text over the backdrop is --muted (#8b9599). Where a
- * scanline crosses the middle of the band it measures 4.63:1, so it clears
- * 4.5:1. The 1px grid lines are ignored: they are hairlines under the text,
- * not the background it is read against. Raising SCANLINE_ALPHA or
- * BAND_ALPHA pushes the muted copy below 4.5:1.
+ * Contrast: the dimmest text over the backdrop is --muted (#949da1) on --ink
+ * (#111d25). Where a scanline crosses the middle of the band it measures
+ * 4.61:1, so it clears 4.5:1. The 1px grid lines are ignored: they are
+ * hairlines under the text, not the background it is read against. Raising
+ * SCANLINE_ALPHA or BAND_ALPHA pushes the muted copy below 4.5:1.
  *
  * How it works: each GlitchText keeps its real content in normal flow, drawn
  * in a transparent colour. That content sets the element's size and is what

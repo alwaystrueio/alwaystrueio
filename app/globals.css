@@ -4,16 +4,19 @@
 
 @layer base {
   :root {
-    /* Ground: cooler and deeper than the old #1a1f24, so the green reads as a
-       mark rather than as ambient glow. */
-    --ink: #0e1315;
-    --ink-raised: #151b1e;
-    --line: #253034;
-    --line-bright: #35434a;
+    /* Ground: the navy of the audit report covers, so the site and the PDFs it
+       links to read as one identity. The raised surface and rules are the
+       same hue, stepped up for separation. */
+    --ink: #111d25;
+    --ink-raised: #17242d;
+    --line: #253742;
+    --line-bright: #344a57;
 
     /* Text: warm off-white, not pure white — closer to paper than to screen. */
     --bone: #e9e7e0;
-    --muted: #8b9599;
+    /* Lifted just enough to keep 4.5:1 where the hero's sweep band passes
+       behind it. */
+    --muted: #949da1;
 
     /* Brand. --brand is the logo green; used for marks and the validator only. */
     --brand: #9af47b;
