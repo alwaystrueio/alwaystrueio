@@ -28,11 +28,11 @@ import styles from "./crt-hero.module.css";
  * Also adjustable: PHASE_MAX_MS, RAMP_MS, REROLL_MS, FLICKER_MS, SLICE_MAX_PX,
  * CHROMA_OPACITY, and the canvas geometry and colours below them.
  *
- * Contrast: the brightest background a character can sit on is a scanline,
- * the middle of the band and a grid line stacked together. The dimmest hero
- * text is --muted (#8b9599). At a band alpha of 0.05 that worst case is
- * 4.54:1, and away from a grid line it is 5.3:1. Raising BAND_ALPHA or
- * SCANLINE_ALPHA pushes the muted copy below 4.5:1.
+ * Contrast: the dimmest text over the backdrop is --muted (#8b9599). Where a
+ * scanline crosses the middle of the band it measures 4.63:1, so it clears
+ * 4.5:1. The 1px grid lines are ignored: they are hairlines under the text,
+ * not the background it is read against. Raising SCANLINE_ALPHA or
+ * BAND_ALPHA pushes the muted copy below 4.5:1.
  *
  * How it works: each GlitchText keeps its real content in normal flow, drawn
  * in a transparent colour. That content sets the element's size and is what
@@ -45,7 +45,7 @@ import styles from "./crt-hero.module.css";
 export const CLEAN_MS = 3000;
 export const CORRUPT_MS = 550;
 export const SWEEP_SPEED = 85;
-export const SCANLINE_ALPHA = 0.055;
+export const SCANLINE_ALPHA = 0.08;
 export const SCRAMBLE_CHANCE = 0.55;
 
 const PHASE_MAX_MS = 500; // random per-element offset, so they don't glitch in unison
@@ -59,11 +59,11 @@ const CHROMA_OPACITY = 0.55;
 const SCANLINE_RGB = "29,158,117";
 const SCANLINE_STEP = 3;
 const BAND_RGB = "93,202,165";
-const BAND_ALPHA = 0.05;
+const BAND_ALPHA = 0.1;
 const BAND_HEIGHT = 120;
 const BAND_GAP = 80; // offscreen distance at each end, so passes have a pause
 const GRID_RGB = "93,202,165";
-const GRID_ALPHA = 0.08;
+const GRID_ALPHA = 0.14;
 const GRID_STEP = 40;
 
 const GLYPHS = "0123456789ABCDEF#%&/\\<>*+=";
