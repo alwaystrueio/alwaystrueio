@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Instrument_Sans, Instrument_Serif, Martian_Mono } from "next/font/google";
+import { SITE_URL, X_HANDLE } from "@/lib/site";
 import "./globals.css";
 
 // Display: high-contrast editorial serif. An audit firm has more in common with
@@ -26,17 +27,21 @@ const DESCRIPTION =
   "alwaystrue provides independent security audits, product engineering, and embedded engineering teams to organizations building on Cardano.";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: "alwaystrue — Security and engineering for the Cardano ecosystem",
   description: DESCRIPTION,
+  alternates: { canonical: "/" },
   openGraph: {
     title: "alwaystrue",
     description: DESCRIPTION,
-    url: "https://alwaystrue.io",
+    url: "/",
     siteName: "alwaystrue",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
+    site: X_HANDLE,
+    creator: X_HANDLE,
     title: "alwaystrue",
     description: DESCRIPTION,
   },

@@ -5,6 +5,7 @@ import { SiteHeader, EMAIL } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import {
   CASE_STUDIES,
+  caseStudyPath,
   getCaseStudy,
   type AuditCaseStudy,
   type CaseStudy,
@@ -13,6 +14,7 @@ import {
   type Severity,
 } from "@/lib/case-studies";
 import type { FindingStatus, MilestoneState } from "@/lib/case-studies/types";
+import { X_HANDLE } from "@/lib/site";
 
 type Params = { slug: string };
 
@@ -63,15 +65,24 @@ export async function generateMetadata({
     study.kind === "Security audit"
       ? `${study.title} security audit — alwaystrue`
       : `${study.title} — alwaystrue`;
+  const url = caseStudyPath(study);
   return {
     title,
     description: study.headline,
+    alternates: { canonical: url },
     openGraph: {
       title,
       description: study.headline,
-      url: `https://alwaystrue.io/case-studies/${study.slug}`,
+      url,
       siteName: "alwaystrue",
       type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: X_HANDLE,
+      creator: X_HANDLE,
+      title,
+      description: study.headline,
     },
   };
 }
