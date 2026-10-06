@@ -16,9 +16,18 @@
   display: block;
   width: 100%;
   height: 100%;
-  /* Ease the scanlines in from whatever sits above the hero instead of
-     starting them on a hard edge. */
-  mask-image: linear-gradient(to bottom, transparent, #000 96px);
+  /* Ease the scanlines in from whatever sits above the hero, and out into
+     whatever follows it, instead of starting or stopping on a hard edge. The
+     exit is longer than the entry so the hero dissolves into the page. */
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    #000 96px,
+    #000 calc(100% - 280px),
+    rgba(0, 0, 0, 0.35) calc(100% - 140px),
+    rgba(0, 0, 0, 0.1) calc(100% - 60px),
+    transparent
+  );
 }
 
 .content {

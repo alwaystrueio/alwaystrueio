@@ -3,6 +3,7 @@ import { CrtHero, GlitchText } from "@/components/crt-hero";
 import { SiteHeader, EMAIL } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
 import { CASE_STUDIES as PUBLISHED, caseStudyPath } from "@/lib/case-studies";
+import { AuditSeal, ServiceNumeral } from "@/components/section-backdrops";
 
 const SERVICES = [
   {
@@ -107,7 +108,7 @@ export default function Home() {
         </CrtHero>
 
         {/* Services, arranged as the shape of a Cardano transaction. */}
-        <section id="practices" className="rule scroll-mt-16 bg-ink">
+        <section id="practices" className="scroll-mt-16 bg-ink">
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
             <div className="mb-12 flex flex-col gap-6 lg:mb-8 lg:flex-row lg:items-end lg:justify-between">
               <h2 className="max-w-[22ch] font-display text-display-sm text-bone">
@@ -131,8 +132,9 @@ export default function Home() {
                 <li
                   key={service.id}
                   id={service.id}
-                  className={`scroll-mt-16 py-14 lg:py-20 ${i > 0 ? "rule" : ""}`}
+                  className={`relative isolate scroll-mt-16 py-14 lg:py-20 ${i > 0 ? "rule" : ""}`}
                 >
+                  <ServiceNumeral index={i} />
                   <div className="grid gap-8 lg:grid-cols-[minmax(0,20rem)_minmax(0,1fr)] lg:gap-16">
                     <div>
                       <p className="label mb-4 !text-teal">{service.output}</p>
@@ -203,7 +205,8 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="rule">
+        <section className="rule relative isolate overflow-hidden">
+          <AuditSeal />
           <div className="mx-auto max-w-[1180px] px-6 py-24 lg:px-10 lg:py-32">
             <h2 className="max-w-[24ch] font-display text-display-sm text-bone md:text-display-md">
               Request a proposal.
