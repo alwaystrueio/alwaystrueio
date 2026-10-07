@@ -45,14 +45,17 @@ export function AuditSeal() {
           strokeDasharray="0.6 2.4"
         />
         <g className={styles.ring}>
+          {/* Letter-spacing is measured so the phrase, in Martian Mono at this
+              size, runs the ring's full circumference (2π × 82 ≈ 515) and
+              closes on itself. Re-measure if the wording changes. */}
           <text
             fill="currentColor"
             fontSize="8"
+            letterSpacing="0.384"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            {/* textLength is the ring's circumference, so the phrase closes on itself. */}
-            <textPath href="#seal-ring" textLength="515" lengthAdjust="spacing">
-              INDEPENDENTLY REVIEWED · ALWAYSTRUE · CARDANO SECURITY ·
+            <textPath href="#seal-ring">
+              {"ALWAYSTRUE · SECURITY AUDITS · PRODUCT ENGINEERING · TEAM AUGMENTATION · OPEN SOURCE · "}
             </textPath>
           </text>
         </g>
