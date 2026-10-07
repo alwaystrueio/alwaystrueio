@@ -23,7 +23,10 @@ type CaseStudyBase = {
   facts: Fact[];
   /** Public links only. Audit and contract repositories are private. */
   links: Link[];
-  /** The short form shown on the landing page card. */
+  /**
+   * The short form shown on the landing page card. Audit cards add their
+   * finding counts from the tally, so they are not repeated here.
+   */
   card: { body: string; facts: string[] };
 };
 

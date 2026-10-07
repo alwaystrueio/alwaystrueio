@@ -26,7 +26,7 @@ export const githoney: AuditCaseStudy = {
   links: [{ label: "githoney.io", href: "https://githoney.io" }],
   card: {
     body: "A bounty protocol that pays open-source contributors through Cardano smart contracts, built by TxPipe. The review of its Aiken validators found three critical vulnerabilities, including one that allowed bounty rewards to be stolen, all resolved before release.",
-    facts: ["Aiken", "21 findings, 3 critical"],
+    facts: ["Aiken"],
   },
 
   system: {

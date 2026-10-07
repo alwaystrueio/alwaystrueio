@@ -1,4 +1,4 @@
-import type { CaseStudy } from "./types";
+import type { AuditCaseStudy, CaseStudy } from "./types";
 import { githoney } from "./githoney";
 import { asteria } from "./asteria";
 import { contractsLibrary } from "./contracts-library";
@@ -26,4 +26,14 @@ export function getCaseStudy(slug: string): CaseStudy | undefined {
 
 export function caseStudyPath(study: Pick<CaseStudy, "slug">): string {
   return `/case-studies/${study.slug}`;
+}
+
+/** Headline numbers for an audit, counted from its severity tally. */
+export function findingCounts(study: AuditCaseStudy) {
+  const count = (severity: string) =>
+    study.findings.tally.find((row) => row.severity === severity)?.count ?? 0;
+  return {
+    total: study.findings.tally.reduce((sum, row) => sum + row.count, 0),
+    critical: count("Critical"),
+  };
 }

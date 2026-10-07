@@ -2,7 +2,8 @@ import { TransactionFlow } from "@/components/transaction-flow";
 import { CrtHero, GlitchText } from "@/components/crt-hero";
 import { SiteHeader, EMAIL } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
-import { CASE_STUDIES as PUBLISHED, caseStudyPath } from "@/lib/case-studies";
+import { CASE_STUDIES } from "@/lib/case-studies";
+import { CaseStudyCard } from "@/components/case-study-card";
 import { AuditSeal, ServiceNumeral } from "@/components/section-backdrops";
 
 const SERVICES = [
@@ -12,19 +13,24 @@ const SERVICES = [
     output: "Security audit",
     title: "Security and optimization audits",
     body: "We conduct a systematic review of each validator, enumerating the execution paths through the contract and the transactions an adversary could construct against it. Every finding is delivered with a severity rating, a reproduction, and a recommended remediation. Optimization reviews include measured before-and-after execution budgets.",
-    detail: ["Aiken", "Plutus / PlutusTx", "Plutarch", "eUTxO threat modeling"],
+    detail: [
+      "Severity-rated findings",
+      "Reproductions",
+      "Remediation guidance",
+      "Fix verification",
+    ],
   },
   {
     id: "products",
     short: "Product engineering",
     output: "Delivered product",
     title: "Product engineering",
-    body: "We deliver Cardano products end to end: on-chain validators, the off-chain services and indexers that support them, and the client applications above. Engagements range from discrete components to complete delivery under the client's own name.",
+    body: "We take Cardano products from idea to mainnet: defining the product, designing the protocol, implementing the validators and the dapp around them, testing at the unit, integration, and property level, and deploying to testnet and mainnet. Engagements range from discrete components to complete delivery under the client's own name.",
     detail: [
-      "On-chain",
-      "Off-chain services",
-      "Indexing",
-      "Client applications",
+      "Product definition",
+      "Protocol design",
+      "Testing",
+      "Deployment",
     ],
   },
   {
@@ -44,16 +50,6 @@ const SERVICES = [
     detail: ["Libraries", "Audit tooling", "Upstream fixes"],
   },
 ] as const;
-
-const CASE_STUDIES = PUBLISHED.map((study) => ({
-  id: study.slug,
-  kind: study.kind === "Security audit" ? "Audit" : "Open source",
-  title: study.title,
-  body: study.card.body,
-  facts: study.card.facts,
-  href: caseStudyPath(study),
-  linkLabel: "Read the case study",
-}));
 
 export default function Home() {
   return (
@@ -110,17 +106,9 @@ export default function Home() {
         {/* Services, arranged as the shape of a Cardano transaction. */}
         <section id="practices" className="scroll-mt-16 bg-ink">
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
-            <div className="mb-12 flex flex-col gap-6 lg:mb-8 lg:flex-row lg:items-end lg:justify-between">
-              <h2 className="max-w-[22ch] font-display text-display-sm text-bone">
-                We join at any stage of development.
-              </h2>
-              <p className="max-w-[46ch] text-base leading-relaxed text-muted">
-                Engagements begin with a finished codebase, a roadmap that is
-                not yet built, or a team that needs additional capacity. In each
-                case the work is staffed from the same group of Cardano
-                engineers.
-              </p>
-            </div>
+            <h2 className="mb-12 font-display text-display-sm text-bone lg:mb-8">
+              We join at any stage of development
+            </h2>
             <TransactionFlow />
           </div>
         </section>
@@ -148,8 +136,14 @@ export default function Home() {
                       </p>
                       <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3">
                         {service.detail.map((d) => (
-                          <li key={d} className="label !text-muted">
+                          <li key={d} className="label !text-bone">
+                            <span aria-hidden="true" className="text-teal">
+                              [{" "}
+                            </span>
                             {d}
+                            <span aria-hidden="true" className="text-teal">
+                              {" "}]
+                            </span>
                           </li>
                         ))}
                       </ul>
@@ -163,43 +157,12 @@ export default function Home() {
 
         <section id="case-studies" className="rule scroll-mt-16 bg-ink">
           <div className="mx-auto max-w-[1180px] px-6 py-20 lg:px-10 lg:py-28">
-            <div className="mb-14 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-              <h2 className="max-w-[22ch] font-display text-display-sm text-bone">
-                Case studies
-              </h2>
-              <p className="max-w-[46ch] text-base leading-relaxed text-muted">
-                Two security reviews and two open-source projects we lead for
-                the ecosystem. Reports are published where the client has agreed
-                to disclosure.
-              </p>
-            </div>
+            <h2 className="mb-14 font-display text-display-sm text-bone">
+              Case studies
+            </h2>
             <ul className="grid gap-px overflow-hidden rounded-sm border border-line bg-line sm:grid-cols-2">
               {CASE_STUDIES.map((study) => (
-                <li
-                  key={study.id}
-                  className="flex flex-col bg-ink-raised p-8 lg:p-10"
-                >
-                  <p className="label mb-5 !text-teal">{study.kind}</p>
-                  <h3 className="font-display text-2xl leading-tight text-bone lg:text-3xl">
-                    {study.title}
-                  </h3>
-                  <p className="mt-4 text-base leading-relaxed text-muted">
-                    {study.body}
-                  </p>
-                  <ul className="mt-7 flex flex-wrap gap-x-5 gap-y-2">
-                    {study.facts.map((fact) => (
-                      <li key={fact} className="label !text-muted">
-                        {fact}
-                      </li>
-                    ))}
-                  </ul>
-                  <a
-                    href={study.href}
-                    className="label mt-8 inline-block border-b border-line-bright pb-1 !text-bone transition-colors hover:border-brand hover:!text-brand"
-                  >
-                    {study.linkLabel}
-                  </a>
-                </li>
+                <CaseStudyCard key={study.slug} study={study} />
               ))}
             </ul>
           </div>

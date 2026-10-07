@@ -173,12 +173,13 @@ export function TransactionFlow() {
         viewBox={`${-PAD} ${-PAD} ${VB.w + PAD * 2} ${VB.h + PAD * 2}`}
         className="hidden w-full lg:block"
       >
-        <title>
-          Arranged as a Cardano transaction: smart contracts, a product roadmap
-          and an existing team are the inputs; alwaystrue is the validator; the
-          outputs are a security audit, a delivered product, embedded engineers
-          and upstream contributions.
-        </title>
+        {/* <desc>, not <title>: read by assistive tech, but no hover tooltip. */}
+        <desc>
+          Smart contracts, a product roadmap and an existing team are the
+          inputs; alwaystrue is the validator; the outputs are a security
+          audit, a delivered product, embedded engineers and upstream
+          contributions.
+        </desc>
         <g
           stroke="var(--line-bright)"
           strokeWidth={1.25}
@@ -352,12 +353,11 @@ export function TransactionFlow() {
         viewBox={`${-PAD} ${-PAD} ${M_W + PAD * 2} ${M_H + PAD * 2}`}
         className="mx-auto w-full max-w-[420px] lg:hidden"
       >
-        <title>
-          Arranged as a Cardano transaction: smart contracts, a product roadmap
-          and an existing team pass through alwaystrue, producing a security
-          audit, a delivered product, embedded engineers and upstream
-          contributions.
-        </title>
+        <desc>
+          Smart contracts, a product roadmap and an existing team pass through
+          alwaystrue, producing a security audit, a delivered product, embedded
+          engineers and upstream contributions.
+        </desc>
 
         <g strokeWidth={1.25} fill="none">
           {/* Trunk and taps above the validator */}

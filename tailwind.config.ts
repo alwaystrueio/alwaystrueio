@@ -11,6 +11,7 @@ export default {
         ink: {
           DEFAULT: "var(--ink)",
           raised: "var(--ink-raised)",
+          hover: "var(--ink-hover)",
         },
         line: {
           DEFAULT: "var(--line)",
@@ -30,6 +31,9 @@ export default {
           enhancement: "#a19aea",
           info: "#e0def4",
         },
+        // The total findings count on case study cards: a cool blue that sits
+        // beside the critical red without competing with it.
+        findings: "#7fa8ee",
         status: {
           resolved: "#73d480",
           acknowledged: "#f1a03a",

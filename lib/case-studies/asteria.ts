@@ -26,7 +26,7 @@ export const asteria: AuditCaseStudy = {
   links: [{ label: "asteria.txpipe.io", href: "https://asteria.txpipe.io" }],
   card: {
     body: "A Cardano bot challenge by TxPipe in which players pilot tokenised ships across an on-chain grid to reach a prize pool. The review of its Aiken validators found two critical vulnerabilities that allowed the prize pool to be drained, both resolved during the engagement.",
-    facts: ["Aiken", "9 findings, 2 critical"],
+    facts: ["Aiken"],
   },
 
   system: {
