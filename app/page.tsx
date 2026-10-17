@@ -94,6 +94,10 @@ export default function Home() {
                                 protocols, products, and contribute to the open-source libraries
                                 the ecosystem depends on.
                             </p>
+                            <p className="label mt-6 leading-relaxed">
+                                Our team has been building on Cardano{" "}
+                                <span className="whitespace-nowrap text-teal">since 2021.</span>
+                            </p>
                             <a
                                 href={`mailto:${EMAIL}`}
                                 className="label mt-10 inline-block border border-brand bg-brand px-6 py-4 !text-ink transition-opacity hover:opacity-85"
