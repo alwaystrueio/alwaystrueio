@@ -2,6 +2,7 @@ import { TransactionFlow } from "@/components/transaction-flow";
 import { CrtHero, GlitchText } from "@/components/crt-hero";
 import { SiteHeader, EMAIL } from "@/components/site-header";
 import { SiteFooter } from "@/components/site-footer";
+import { HackathonBanner } from "@/components/hackathon-banner";
 import { CASE_STUDIES } from "@/lib/case-studies";
 import { CaseStudyCard } from "@/components/case-study-card";
 import { AuditSeal, ServiceNumeral } from "@/components/section-backdrops";
@@ -54,6 +55,7 @@ const SERVICES = [
 export default function Home() {
     return (
         <div className="min-h-screen bg-ink">
+            <HackathonBanner />
             <SiteHeader />
 
             <main>
