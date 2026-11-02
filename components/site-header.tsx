@@ -32,6 +32,12 @@ export function SiteHeader() {
         >
           Case studies
         </Link>
+        <Link
+          href="/hackathon"
+          className="label hidden transition-colors hover:text-bone sm:block"
+        >
+          Hackathon
+        </Link>
         <a
           href={`mailto:${EMAIL}`}
           className="label border border-line-bright px-4 py-2.5 !text-bone transition-colors hover:border-brand hover:!text-brand"
